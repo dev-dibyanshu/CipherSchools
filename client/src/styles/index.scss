@@ -1,0 +1,725 @@
+// Import variables and mixins first
+@import 'variables';
+@import 'mixins';
+
+// Import base styles
+@import 'base';
+
+// Component styles
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+// Header component
+.header {
+  background-color: $surface-color;
+  border-bottom: 1px solid $border-color;
+  padding: $spacing-md 0;
+  
+  &__container {
+    @include flex-between;
+  }
+  
+  &__logo {
+    font-size: $font-size-xl;
+    font-weight: 700;
+    color: $primary-color;
+  }
+  
+  &__nav {
+    display: none;
+    
+    @include tablet-up {
+      display: flex;
+      gap: $spacing-lg;
+    }
+  }
+}
+
+// Main content
+.main {
+  flex: 1;
+  padding: $spacing-lg 0;
+}
+
+// Assignment list page
+.assignment-list {
+  &__title {
+    text-align: center;
+    margin-bottom: $spacing-2xl;
+  }
+  
+  &__grid {
+    @include grid-responsive;
+  }
+}
+
+.assignment-card {
+  @include card;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: $shadow-lg;
+  }
+  
+  &__header {
+    @include flex-between;
+    margin-bottom: $spacing-md;
+  }
+  
+  &__title {
+    font-size: $font-size-lg;
+    font-weight: 600;
+    margin-bottom: $spacing-xs;
+  }
+  
+  &__difficulty {
+    padding: $spacing-xs $spacing-sm;
+    border-radius: $border-radius-sm;
+    font-size: $font-size-xs;
+    font-weight: 500;
+    text-transform: uppercase;
+    
+    &--easy {
+      background-color: rgba($success-color, 0.1);
+      color: $success-color;
+    }
+    
+    &--medium {
+      background-color: rgba($warning-color, 0.1);
+      color: $warning-color;
+    }
+    
+    &--hard {
+      background-color: rgba($error-color, 0.1);
+      color: $error-color;
+    }
+  }
+  
+  &__description {
+    color: $text-secondary;
+    font-size: $font-size-sm;
+  }
+}
+
+// Assignment attempt page - STRICT BALANCED LAYOUT
+.assignment-attempt {
+  width: 100%;
+  min-height: 100vh;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  
+  // Question section at top - no height constraints
+  &__question {
+    flex-shrink: 0;
+    width: 100%;
+    border-bottom: 1px solid $border-color;
+  }
+  
+  // Main content area - EXACT SPECIFICATIONS
+  &__main {
+    flex: 1;
+    display: flex;
+    height: 450px; // EXACT HEIGHT as specified
+    
+    // Mobile: stack vertically
+    flex-direction: column;
+    
+    @include tablet-up {
+      flex-direction: row;
+      height: 450px; // MAINTAIN exact height on tablet+
+    }
+    
+    @include desktop-up {
+      height: 450px; // STRICT 450px height on desktop
+    }
+    
+    @include large-up {
+      height: 450px; // CONSISTENT across all desktop sizes
+    }
+  }
+  
+  // Hint section at bottom - no height constraints
+  &__hint {
+    flex-shrink: 0;
+    width: 100%;
+    border-top: 1px solid $border-color;
+  }
+  
+  // STRICT PANEL SPECIFICATIONS
+  &__data {
+    // Sample Data Panel: 30% width, 450px height
+    width: 30%;
+    height: 450px;
+    min-width: 0;
+    border-right: 1px solid $border-color;
+    
+    @include mobile-up {
+      width: 100%;
+      height: 300px;
+    }
+    
+    @include tablet-up {
+      width: 35%; // Slightly larger on tablet
+      height: 450px;
+    }
+    
+    @include desktop-up {
+      width: 30%; // EXACT 30% as specified
+      height: 450px;
+    }
+  }
+  
+  &__editor {
+    // SQL Editor Panel: 40% width, 450px height
+    width: 40%;
+    height: 450px;
+    min-width: 0;
+    border-right: 1px solid $border-color;
+    
+    @include mobile-up {
+      width: 100%;
+      height: 400px;
+    }
+    
+    @include tablet-up {
+      width: 65%; // Take remaining space on tablet
+      height: 450px;
+    }
+    
+    @include desktop-up {
+      width: 40%; // EXACT 40% as specified
+      height: 450px;
+    }
+  }
+  
+  &__result {
+    // Results Panel: 30% width, 450px height
+    width: 30%;
+    height: 450px;
+    min-width: 0;
+    
+    @include mobile-up {
+      width: 100%;
+      height: 300px;
+    }
+    
+    @include tablet-up {
+      display: none; // Hide on tablet to make room
+    }
+    
+    @include desktop-up {
+      display: block;
+      width: 30%; // EXACT 30% as specified
+      height: 450px;
+    }
+  }
+}
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  height: 100%; // Use EXACT allocated height
+  background-color: $surface-color;
+  border: 1px solid $border-color;
+  overflow: hidden; // Prevent any panel from expanding beyond allocated space
+  
+  &__header {
+    flex-shrink: 0;
+    padding: $spacing-md;
+    border-bottom: 1px solid $border-color;
+    background-color: #f8fafc;
+    
+    @include flex-between;
+  }
+  
+  &__title {
+    font-size: $font-size-base;
+    font-weight: 600;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: $spacing-sm;
+  }
+  
+  &__content {
+    flex: 1;
+    padding: $spacing-md;
+    min-height: 0; // Allow flex shrinking
+    overflow: hidden; // NO scrolling by default
+    // Only data-panel will override this with scrolling
+  }
+}
+
+.question-panel {
+  &__requirements {
+    background-color: #f0f9ff;
+    padding: $spacing-md;
+    border-radius: $border-radius-md;
+    border-left: 3px solid $primary-color;
+    margin-top: $spacing-md;
+    
+    h4 {
+      margin: 0 0 $spacing-sm 0;
+      font-size: $font-size-sm;
+      color: $primary-color;
+      font-weight: 600;
+    }
+    
+    ul {
+      margin: 0;
+      padding-left: $spacing-lg;
+      
+      li {
+        margin-bottom: $spacing-xs;
+        line-height: 1.4;
+        font-size: $font-size-sm;
+      }
+    }
+  }
+  
+  .panel__title::before {
+    content: "❓";
+  }
+}
+
+.data-panel {
+  // ONLY this panel should have internal scrolling - STRICT REQUIREMENT
+  .panel__content {
+    overflow-y: auto !important; // Force scrolling for data panel ONLY
+    
+    // Custom scrollbar for data panel only
+    &::-webkit-scrollbar {
+      width: 8px;
+    }
+    
+    &::-webkit-scrollbar-track {
+      background: #f1f1f1;
+      border-radius: 4px;
+    }
+    
+    &::-webkit-scrollbar-thumb {
+      background: #c1c1c1;
+      border-radius: 4px;
+      
+      &:hover {
+        background: #a8a8a8;
+      }
+    }
+  }
+  
+  &__table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: $font-size-xs;
+    margin-bottom: $spacing-md;
+    
+    th, td {
+      padding: $spacing-xs $spacing-sm;
+      text-align: left;
+      border: 1px solid $border-color;
+      vertical-align: top;
+      word-wrap: break-word;
+      max-width: 100px; // Smaller max-width for 30% panel
+    }
+    
+    th {
+      background-color: #f8fafc;
+      font-weight: 600;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      position: sticky;
+      top: 0;
+      z-index: 1;
+    }
+    
+    td {
+      font-family: $font-family-mono;
+      font-size: 11px;
+      line-height: 1.3;
+    }
+    
+    tr:nth-child(even) {
+      background-color: #f9fafb;
+    }
+    
+    tr:hover {
+      background-color: #f0f9ff;
+    }
+  }
+  
+  &__schema {
+    margin-bottom: $spacing-lg;
+    
+    h4 {
+      margin: 0 0 $spacing-sm 0;
+      color: $primary-color;
+      font-size: $font-size-sm;
+      font-weight: 600;
+    }
+    
+    h5 {
+      margin: $spacing-md 0 $spacing-sm 0;
+      color: $text-secondary;
+      font-size: $font-size-xs;
+      font-weight: 600;
+    }
+  }
+  
+  .panel__title::before {
+    content: "🗃️";
+  }
+}
+
+.editor-panel {
+  display: flex;
+  flex-direction: column;
+  height: 100%; // EXACT 450px height
+  
+  &__actions {
+    flex-shrink: 0;
+    padding: $spacing-md;
+    border-bottom: 1px solid $border-color;
+    background-color: #f8fafc;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  &__execute-btn {
+    @include button-primary;
+    padding: $spacing-sm $spacing-lg;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: $spacing-sm;
+    
+    &::before {
+      content: "▶️";
+      font-size: $font-size-xs;
+    }
+    
+    &:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      
+      &::before {
+        content: "⏸️";
+      }
+    }
+  }
+  
+  &__editor-container {
+    flex: 1;
+    position: relative;
+    min-height: 0; // Allow flex shrinking
+    background-color: #ffffff;
+    overflow: hidden; // NO SCROLLING - must fit in allocated space
+    
+    .monaco-editor {
+      height: 100% !important;
+      width: 100% !important;
+    }
+  }
+  
+  .panel__title::before {
+    content: "💻";
+  }
+}
+
+.result-panel {
+  // Results panel - SCROLLABLE for validation results and long content
+  .panel__content {
+    overflow-y: auto !important; // Enable scrolling for results panel
+    
+    // Custom scrollbar for results panel
+    &::-webkit-scrollbar {
+      width: 8px;
+    }
+    
+    &::-webkit-scrollbar-track {
+      background: #f1f1f1;
+      border-radius: 4px;
+    }
+    
+    &::-webkit-scrollbar-thumb {
+      background: #c1c1c1;
+      border-radius: 4px;
+      
+      &:hover {
+        background: #a8a8a8;
+      }
+    }
+  }
+  
+  &__table {
+    @extend .data-panel__table;
+    
+    th {
+      background-color: #f0fdf4;
+      border-bottom: 2px solid $success-color;
+    }
+    
+    td:first-child {
+      font-weight: 600;
+      color: $success-color;
+    }
+    
+    tr:hover {
+      background-color: #f0fdf4;
+    }
+  }
+  
+  &__error {
+    background-color: rgba($error-color, 0.1);
+    color: $error-color;
+    padding: $spacing-md;
+    border-radius: $border-radius-md;
+    border-left: 3px solid $error-color;
+    font-family: $font-family-mono;
+    font-size: $font-size-sm;
+    line-height: 1.5;
+    white-space: pre-wrap;
+    word-break: break-word;
+    
+    strong {
+      display: block;
+      margin-bottom: $spacing-sm;
+      font-family: $font-family-primary;
+    }
+  }
+  
+  &__empty {
+    text-align: center;
+    color: $text-secondary;
+    padding: $spacing-xl;
+    font-style: italic;
+    
+    .spinner {
+      margin-right: $spacing-sm;
+    }
+  }
+  
+  &__success {
+    background-color: rgba($success-color, 0.1);
+    color: $success-color;
+    padding: $spacing-sm $spacing-md;
+    border-radius: $border-radius-sm;
+    font-size: $font-size-sm;
+    font-weight: 600;
+    margin-bottom: $spacing-md;
+    border-left: 3px solid $success-color;
+    display: flex;
+    align-items: center;
+    gap: $spacing-sm;
+  }
+  
+  &__validation {
+    margin-bottom: $spacing-md;
+  }
+  
+  .panel__title::before {
+    content: "📋";
+  }
+}
+
+// Validation feedback styles
+.validation-feedback {
+  padding: $spacing-sm $spacing-md;
+  border-radius: $border-radius-sm;
+  font-size: $font-size-sm;
+  font-weight: 600;
+  margin-bottom: $spacing-md;
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+  
+  &--success {
+    background-color: rgba($success-color, 0.1);
+    color: $success-color;
+    border-left: 3px solid $success-color;
+  }
+  
+  &--error {
+    background-color: rgba($error-color, 0.1);
+    color: $error-color;
+    border-left: 3px solid $error-color;
+  }
+}
+
+.validation-stats {
+  font-size: $font-size-xs;
+  
+  &__summary {
+    color: $text-secondary;
+    margin-bottom: $spacing-sm;
+    font-weight: 500;
+  }
+  
+  &__failures {
+    margin-top: $spacing-sm;
+  }
+}
+
+.validation-failure {
+  background-color: rgba($error-color, 0.05);
+  padding: $spacing-sm;
+  border-radius: $border-radius-sm;
+  margin-bottom: $spacing-xs;
+  font-size: $font-size-xs;
+  
+  strong {
+    color: $error-color;
+  }
+  
+  &__details {
+    margin-top: $spacing-sm;
+    
+    summary {
+      cursor: pointer;
+      color: $primary-color;
+      font-size: $font-size-xs;
+      
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}
+
+.validation-comparison {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: $spacing-sm;
+  margin-top: $spacing-sm;
+  
+  &__expected,
+  &__actual {
+    background-color: #f8fafc;
+    padding: $spacing-sm;
+    border-radius: $border-radius-sm;
+    
+    strong {
+      display: block;
+      margin-bottom: $spacing-xs;
+      font-size: $font-size-xs;
+    }
+    
+    pre {
+      font-size: 10px;
+      line-height: 1.3;
+      margin: 0;
+      white-space: pre-wrap;
+      word-break: break-word;
+      max-height: 100px;
+      overflow-y: auto;
+    }
+  }
+  
+  &__expected {
+    border-left: 3px solid $success-color;
+    
+    strong {
+      color: $success-color;
+    }
+  }
+  
+  &__actual {
+    border-left: 3px solid $error-color;
+    
+    strong {
+      color: $error-color;
+    }
+  }
+}
+
+.hint-panel {
+  &__button {
+    @include button-secondary;
+    margin-bottom: $spacing-md;
+    padding: $spacing-sm $spacing-lg;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: $spacing-sm;
+    
+    &::before {
+      content: "💡";
+      font-size: $font-size-xs;
+    }
+  }
+  
+  &__content {
+    background-color: #f0f9ff;
+    padding: $spacing-md;
+    border-radius: $border-radius-md;
+    border-left: 3px solid $primary-color;
+    
+    p {
+      margin: 0 0 $spacing-sm 0;
+      line-height: 1.5;
+      font-size: $font-size-sm;
+      
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+  
+  &__loading {
+    text-align: center;
+    color: $text-secondary;
+    padding: $spacing-lg;
+    font-style: italic;
+  }
+  
+  .panel__title::before {
+    content: "💡";
+  }
+}
+
+// Loading spinner
+.spinner {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #f3f3f3;
+  border-top: 2px solid $primary-color;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+// Responsive utilities
+.mobile-only {
+  @include tablet-up {
+    display: none !important;
+  }
+}
+
+.tablet-up {
+  display: none !important;
+  
+  @include tablet-up {
+    display: block !important;
+  }
+}
+
+.desktop-up {
+  display: none !important;
+  
+  @include desktop-up {
+    display: block !important;
+  }
+}

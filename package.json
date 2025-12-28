@@ -1,0 +1,19 @@
+{
+  "name": "cipher-sql-studio",
+  "version": "1.0.0",
+  "description": "Full-stack SQL learning platform",
+  "main": "server/app.js",
+  "scripts": {
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "cd server && npm run dev",
+    "client": "cd client && npm start",
+    "install-all": "npm install && cd client && npm install && cd ../server && npm install",
+    "seed": "cd server && npm run seed"
+  },
+  "keywords": ["sql", "learning", "platform", "postgresql", "mongodb"],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
