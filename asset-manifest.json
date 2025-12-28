@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/CipherSchools/static/css/main.3dbdd8fb.css",
+    "main.js": "/CipherSchools/static/js/main.cd23d3cd.js",
+    "index.html": "/CipherSchools/index.html",
+    "main.3dbdd8fb.css.map": "/CipherSchools/static/css/main.3dbdd8fb.css.map",
+    "main.cd23d3cd.js.map": "/CipherSchools/static/js/main.cd23d3cd.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.3dbdd8fb.css",
+    "static/js/main.cd23d3cd.js"
+  ]
+}
