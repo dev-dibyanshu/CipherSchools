@@ -1,19 +1,32 @@
 {
-  "name": "cipher-sql-studio",
+  "name": "ciphersqlstudio",
   "version": "1.0.0",
-  "description": "Full-stack SQL learning platform",
+  "description": "Interactive SQL Learning Platform with LeetCode-Style Validation",
   "main": "server/app.js",
   "scripts": {
-    "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "server": "cd server && npm run dev",
-    "client": "cd client && npm start",
-    "install-all": "npm install && cd client && npm install && cd ../server && npm install",
-    "seed": "cd server && npm run seed"
+    "start": "cd server && npm start",
+    "dev": "cd server && npm run dev",
+    "build": "cd client && npm run build",
+    "install-client": "cd client && npm install",
+    "install-server": "cd server && npm install",
+    "install-all": "npm run install-client && npm run install-server",
+    "deploy": "cd client && npm run deploy"
   },
-  "keywords": ["sql", "learning", "platform", "postgresql", "mongodb"],
-  "author": "",
-  "license": "MIT",
-  "devDependencies": {
-    "concurrently": "^8.2.2"
-  }
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dev-dibyanshu/CipherSchools.git"
+  },
+  "keywords": [
+    "sql",
+    "learning",
+    "education",
+    "postgresql",
+    "react",
+    "nodejs"
+  ],
+  "author": "Dev Dibyanshu",
+  "license": "MIT"
 }
