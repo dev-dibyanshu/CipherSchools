@@ -1,4 +1,4 @@
-# CipherSQLStudio 🔐
+# Online-SQL-editor 🔐
 
 **Interactive SQL Learning Platform with LeetCode-Style Validation**
 
@@ -242,9 +242,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 👨‍💻 Author
 
 **Your Name**
-- GitHub: [@your-username](https://github.com/your-username)
-- LinkedIn: [Your LinkedIn](https://linkedin.com/in/your-profile)
-
+- GitHub: https://github.com/dev-dibyanshu/
+- LinkedIn: https://www.linkedin.com/in/dev-dibyanshu/
+  
 ## 🙏 Acknowledgments
 
 - OpenAI for intelligent hint generation
